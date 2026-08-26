@@ -1,9 +1,8 @@
 package com.example.agroconnect.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.agroconnect.entities.Usuario;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/usuario")
@@ -15,15 +14,30 @@ public class UsuarioController {
         return "Helo Word";
     }
     @GetMapping("/{id}")
-    public String ConsultaUsuarioPorId(@PathVariable long id){
-        return "Usuario por ID" + id;
+
+    public Usuario ConsultaUsuarioPorId(@PathVariable long id){
+        Usuario usuario = new Usuario();
+
+        usuario.setnome("Leandro");
+        usuario.setCpf("999999999");
+        usuario.setDataNascimento("04-11-91");
+
+        return usuario;
     }
+
+
     @GetMapping("/empresa/{empresaId}")
-    public String ConsultaUsuarioPorEmpresaId(@PathVariable long empresaId){
-        return " Empresa por empresa" + empresaId;
+    public Usuario ConsultaUsuarioPorEmpresaId(@PathVariable long empresaId){
+        Usuario usuarioContrutorCompleto = new Usuario("Leandro","999999999","04-11-91");
+
+        return usuarioContrutorCompleto;
     }
 
-    
 
+
+    @PostMapping
+    public ResponseEntity<Usuario> CadastrarUsuario(@RequestBody Usuario usuarioRequest){
+        return ResponseEntity.ok(usuarioRequest);
+    }
 
 }
