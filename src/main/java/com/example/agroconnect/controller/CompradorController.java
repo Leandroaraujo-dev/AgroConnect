@@ -11,8 +11,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 public class CompradorController {
     @GetMapping
-    public String ConsultaCompradorId(@PathVariable long id){
-        return "comprador" + id;
+    public String ConsultaComprado(){
+        return "comprador";
     }
+
+
+
+
+
+
+
+
 }
 

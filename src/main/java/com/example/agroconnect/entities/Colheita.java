@@ -2,22 +2,25 @@ package com.example.agroconnect.entities;
 
 public class Colheita {
 
-
 private Long id;
 
 private String nomedeProduto;
 
 private Integer quantidadeEstoque;
 
-private Double ValorProduto;
+private Double valorProduto;
 
-private String produtorRural;
+private Usuario usuario;
 
 public Long getId() {
     return this.id;
 }
 
-public String getNomedeProduto(){
+public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNomedeProduto(){
         return this.nomedeProduto;
 }
 
@@ -32,20 +35,20 @@ public void setQuantidadeEstoque(Integer quantidadeEstoque){
     this.quantidadeEstoque = quantidadeEstoque;
 }
 
-public String getProdutorRural(){
-    return this.produtorRural;
+public Usuario getUsuario(){
+    return this.usuario;
 }
 
-public void  setProdutorRural(String produtorRural){
-    this.produtorRural = produtorRural;
+public void  setUsuario(Usuario usuario){
+    this.usuario = usuario;
 }
 
 public Double getValorProduto() {
-        return this.ValorProduto;
+        return this.valorProduto;
 }
 
 public void setValorProduto(Double valorProduto) {
-       this.ValorProduto = valorProduto;
+       this.valorProduto = valorProduto;
     }
 }
 
