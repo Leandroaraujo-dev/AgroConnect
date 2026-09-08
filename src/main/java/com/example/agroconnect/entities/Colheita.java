@@ -50,5 +50,9 @@ public Double getValorProduto() {
 public void setValorProduto(Double valorProduto) {
        this.valorProduto = valorProduto;
     }
+
+    public void setProdutorRural(String produtorRural) {
+
+    }
 }
 
