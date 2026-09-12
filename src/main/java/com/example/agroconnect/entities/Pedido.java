@@ -1,5 +1,11 @@
 package com.example.agroconnect.entities;
 
+
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+
 public class Pedido {
 
     private Long id;
@@ -7,6 +13,8 @@ public class Pedido {
     private Comprador comprador;
     private Integer quantidadeComprada;
     private String statusPagamento;
+
+
 
     public Long getId() {
         return id;

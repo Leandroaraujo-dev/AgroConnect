@@ -71,6 +71,7 @@ public class CompradorController {
     public ResponseEntity<CompradorResponse> deletarComprador(@PathVariable Long id) {
         Comprador compradorBanco = new Comprador();
         if (compradorBanco != null) {
+
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.notFound().build();

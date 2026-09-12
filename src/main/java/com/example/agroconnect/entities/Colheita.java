@@ -1,5 +1,12 @@
 package com.example.agroconnect.entities;
 
+
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+
+
 public class Colheita {
 
 private Long id;
@@ -10,7 +17,8 @@ private Integer quantidadeEstoque;
 
 private Double valorProduto;
 
-private Usuario usuario;
+private Usuario usuarioColheita;
+
 
 public Long getId() {
     return this.id;
@@ -35,12 +43,12 @@ public void setQuantidadeEstoque(Integer quantidadeEstoque){
     this.quantidadeEstoque = quantidadeEstoque;
 }
 
-public Usuario getUsuario(){
-    return this.usuario;
+public Usuario getUsuarioColheita(){
+    return this.usuarioColheita;
 }
 
 public void  setUsuario(Usuario usuario){
-    this.usuario = usuario;
+    this.usuarioColheita = usuarioColheita;
 }
 
 public Double getValorProduto() {
