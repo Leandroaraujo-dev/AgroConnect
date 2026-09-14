@@ -4,30 +4,36 @@ import com.example.agroconnect.DTO.AtualizarEnderecoCompradorRequest;
 import com.example.agroconnect.DTO.CompradorRequest;
 import com.example.agroconnect.DTO.CompradorResponse;
 import com.example.agroconnect.entities.Comprador;
+import com.example.agroconnect.repository.CompradorRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
 @RequestMapping("/Comprador")
 
 public class CompradorController {
+
+
+    @Autowired
+    public CompradorRepository compradorRepository;
+
     @GetMapping
-    public String ConsultaComprado() {
-        return "comprador";
+    public List<Comprador> consultaComprador() {
+        return compradorRepository.findAll();
     }
 
     @GetMapping("/{id}")
-    public Comprador consultaCompradorId(@PathVariable long id) {
-        Comprador comprador = new Comprador();
+    public ResponseEntity<Comprador> consultaCompradorId(@PathVariable long id) {
+        var comprador = compradorRepository.findById(id).orElse(null);
+        if (comprador == null) {
+            return ResponseEntity.notFound().build();
+        }
 
-        comprador.setId(id);
-        comprador.setNome("");
-        comprador.setCpfouCnpj("");
-        comprador.setEnderecoEntrega("");
-
-        return comprador;
-
+        return ResponseEntity.ok(comprador);
     }
 
     @PostMapping
@@ -50,6 +56,7 @@ public class CompradorController {
             compradorBanco.setEnderecoEntrega(request.getEnderecoEntrega());
             compradorBanco.setCpfouCnpj(request.getCnpjOuCpf());
 
+            compradorRepository.save(compradorBanco);
             return ResponseEntity.ok(new CompradorResponse("Comprador atualizado com sucesso", compradorBanco.getId()));
         }
         return ResponseEntity.notFound().build();
@@ -62,19 +69,24 @@ public class CompradorController {
         if (compradorBanco != null) {
             compradorBanco.setEnderecoEntrega(request.getEnderecoEntrega());
 
+            compradorRepository.save(compradorBanco);
             return ResponseEntity.ok(new CompradorResponse("Endereço atualizado com sucesso", compradorBanco.getId()));
         }
         return ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<CompradorResponse> deletarComprador(@PathVariable Long id) {
-        Comprador compradorBanco = new Comprador();
+    public ResponseEntity<CompradorResponse> AtualizarStatus(@PathVariable Long id) {
+
+        Comprador compradorBanco = compradorRepository.findById(id).orElse(null);
+
         if (compradorBanco != null) {
+            compradorBanco.setStatus("D");
+            compradorRepository.save(compradorBanco);
 
             return ResponseEntity.ok().build();
         }
-        return ResponseEntity.notFound().build();
 
+        return ResponseEntity.notFound().build();
     }
 }

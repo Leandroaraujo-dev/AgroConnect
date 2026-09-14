@@ -5,61 +5,66 @@ import com.example.agroconnect.DTO.AtualizarEstoqueColheitaRequest;
 import com.example.agroconnect.DTO.ColheitaRequest;
 import com.example.agroconnect.DTO.ColheitaResponse;
 import com.example.agroconnect.entities.Colheita;
+import com.example.agroconnect.repository.ColheitaRepository;
+import org.aspectj.weaver.ast.Var;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/Colheita")
-
 public class ColheitaController{
+
+    @Autowired
+    private ColheitaRepository colheitaRepository;
+
     @GetMapping
-public String consultaColheita(){
-    return "Pagina colheita";
+public List<Colheita> consultaColheita()
+    {
+    return colheitaRepository.findAll();
     }
 
     @GetMapping("/{id}")
-    public Colheita consultaColheitaId(@PathVariable long id){
-        Colheita colheita = new Colheita();
-
-        colheita.setId(id);
-        colheita.setNomedeProduto("Milho");
-        colheita.setQuantidadeEstoque(500);
-        colheita.setValorProduto(45.50);
-        return colheita;
+    public ResponseEntity<Colheita> consultaColheitaId(@PathVariable long id){
+        var colheita = colheitaRepository.findById(id).orElse(null);
+        if (colheita==null){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(colheita);
     }
-    @GetMapping("/produtor/{produtorId}")
-    public Colheita consultaColheitaPorProdutoId(@PathVariable long produtorId){
-        Colheita colheita = new Colheita();
 
-        colheita.setId(1L);
-        colheita.setNomedeProduto("Soja");
-        colheita.setQuantidadeEstoque(200);
-        colheita.setValorProduto(120.0);
-        return colheita;
+    @GetMapping("/produtor/{produtorId}")
+    public List<Colheita> consultaColheitaPorProdutoId(@PathVariable long produtorId) {
+        return colheitaRepository.findByUsuarioColheitaId(produtorId);
     }
 
     @PostMapping
-    public ResponseEntity<ColheitaResponse> cadastrarColheita(@RequestBody ColheitaRequest colheitaRequest){
+    public ResponseEntity<ColheitaResponse> cadastrarColheita(@RequestBody ColheitaRequest request){
 
         Colheita colheitaBanco = new Colheita();
 
-         colheitaBanco.setNomedeProduto(colheitaRequest.getNomeProduto());
-         colheitaBanco.setQuantidadeEstoque(colheitaBanco.getQuantidadeEstoque());
-         colheitaBanco.setValorProduto(colheitaBanco.getValorProduto());
+         colheitaBanco.setNomedeProduto(request.getNomeProduto());
+         colheitaBanco.setQuantidadeEstoque(request.getQuantidadeEstoque());
+         colheitaBanco.setValorProduto(request.getValorProduto());
+
+         colheitaRepository.save(colheitaBanco);
 
          return ResponseEntity.ok(new ColheitaResponse("Colheita cadastrada com sucesso", colheitaBanco.getId()));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ColheitaResponse> atualizarColheita(@PathVariable long id, @RequestBody ColheitaRequest colheitaRequest){
-        Colheita colheitaBanco = new Colheita();
-        colheitaBanco.setId(id);
+    public ResponseEntity<ColheitaResponse> atualizarColheita(@PathVariable long id, @RequestBody ColheitaRequest request){
+        Colheita colheitaBanco = colheitaRepository.findById(id).orElse(null);
 
         if (colheitaBanco != null) {
-            colheitaBanco.setNomedeProduto(colheitaRequest.getNomeProduto());
-            colheitaBanco.setQuantidadeEstoque(colheitaRequest.getQuantidadeEstoque());
-            colheitaBanco.setValorProduto(colheitaRequest.getValorProduto());
-            colheitaBanco.setProdutorRural(colheitaRequest.getProdutorRural());
+            colheitaBanco.setNomedeProduto(request.getNomeProduto());
+            colheitaBanco.setQuantidadeEstoque(request.getQuantidadeEstoque());
+            colheitaBanco.setValorProduto(request.getValorProduto());
+            colheitaBanco.setProdutorRural(request.getProdutorRural());
+
+            colheitaRepository.save(colheitaBanco);
 
             return ResponseEntity.ok(new ColheitaResponse("Colheita atualizada com sucesso", colheitaBanco.getId()));
         }
@@ -68,13 +73,11 @@ public String consultaColheita(){
     }
     @PatchMapping("/{id}/estoque")
     public ResponseEntity<ColheitaResponse> AtualizarEstoque(@PathVariable Long id, @RequestBody AtualizarEstoqueColheitaRequest request) {
-
-        // consulta no banco (simulação)
-        Colheita colheitaBanco = new Colheita();
-        colheitaBanco.setId(id);
+        Colheita colheitaBanco = colheitaRepository.findById(id).orElse(null);
 
         if (colheitaBanco != null) {
             colheitaBanco.setQuantidadeEstoque(request.getQuantidadeEstoque());
+            colheitaRepository.save(colheitaBanco);
 
             return ResponseEntity.ok(new ColheitaResponse("Estoque atualizado com sucesso", colheitaBanco.getId()));
         }
@@ -83,18 +86,17 @@ public String consultaColheita(){
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<ColheitaResponse> DeletarColheita(@PathVariable Long id) {
+    public ResponseEntity<ColheitaResponse> deletarColheita(@PathVariable Long id) {
 
-        Colheita colheitaBanco = new Colheita();
+        Colheita colheitaBanco = colheitaRepository.findById(id).orElse(null);
 
         if (colheitaBanco != null) {
+            colheitaBanco.setStatus("D");
+            colheitaRepository.save(colheitaBanco);
 
             return ResponseEntity.ok().build();
         }
 
         return ResponseEntity.notFound().build();
-    }
-
-    }
-
+    }}
 
