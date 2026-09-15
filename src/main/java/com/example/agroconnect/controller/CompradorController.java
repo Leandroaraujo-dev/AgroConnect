@@ -44,6 +44,8 @@ public class CompradorController {
         compradorBanco.setEnderecoEntrega(request.getEnderecoEntrega());
         compradorBanco.setCpfouCnpj(request.getCnpjOuCpf());
 
+        compradorRepository.save(compradorBanco);
+
         return ResponseEntity.ok(new CompradorResponse("Comprador cadastrado com sucesso", compradorBanco.getId()));
     }
 

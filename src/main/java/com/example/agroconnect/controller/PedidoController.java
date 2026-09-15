@@ -4,6 +4,7 @@ import com.example.agroconnect.DTO.AtualizaStatusPedidoRequest;
 import com.example.agroconnect.DTO.PedidoRequest;
 import com.example.agroconnect.DTO.PedidoResponse;
 import com.example.agroconnect.entities.Colheita;
+import com.example.agroconnect.entities.Comprador;
 import com.example.agroconnect.entities.Pedido;
 import com.example.agroconnect.repository.ColheitaRepository;
 import com.example.agroconnect.repository.CompradorRepository;
@@ -24,6 +25,9 @@ import java.util.List;
 
     @Autowired
     private ColheitaRepository colheitaRepository;
+
+    @Autowired
+    private CompradorRepository compradorRepository;
 
 
     @GetMapping
@@ -47,6 +51,16 @@ import java.util.List;
 
         pedidoBanco.setQuantidadeComprada(request.getQuantidadeComprada());
         pedidoBanco.setStatusPagamento("Pendente");
+        pedidoBanco.setStatus("A");
+        Colheita colheita = colheitaRepository.findById(request.getColheitaId()).orElse(null);
+        Comprador comprador = compradorRepository.findById(request.getCompradorId()).orElse(null);
+
+        if (colheita == null || comprador == null) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        pedidoBanco.setColheitaComprada(colheita);
+        pedidoBanco.setComprador(comprador);
 
         pedidoRepository.save(pedidoBanco);
         return ResponseEntity.ok(new PedidoResponse("Pedido criado com sucesso", pedidoBanco.getId()));

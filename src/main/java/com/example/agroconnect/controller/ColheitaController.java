@@ -5,7 +5,9 @@ import com.example.agroconnect.DTO.AtualizarEstoqueColheitaRequest;
 import com.example.agroconnect.DTO.ColheitaRequest;
 import com.example.agroconnect.DTO.ColheitaResponse;
 import com.example.agroconnect.entities.Colheita;
+import com.example.agroconnect.entities.Usuario;
 import com.example.agroconnect.repository.ColheitaRepository;
+import com.example.agroconnect.repository.UsuarioRepository;
 import org.aspectj.weaver.ast.Var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +21,9 @@ public class ColheitaController{
 
     @Autowired
     private ColheitaRepository colheitaRepository;
+
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
     @GetMapping
 public List<Colheita> consultaColheita()
@@ -49,6 +54,16 @@ public List<Colheita> consultaColheita()
          colheitaBanco.setQuantidadeEstoque(request.getQuantidadeEstoque());
          colheitaBanco.setValorProduto(request.getValorProduto());
 
+         colheitaBanco.setStatus("A");
+
+        Usuario donoColheita = usuarioRepository.findById(request.getUsuarioId()).orElse(null);
+
+        if(donoColheita == null) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        colheitaBanco.setUsuario(donoColheita);
+
          colheitaRepository.save(colheitaBanco);
 
          return ResponseEntity.ok(new ColheitaResponse("Colheita cadastrada com sucesso", colheitaBanco.getId()));
@@ -62,7 +77,6 @@ public List<Colheita> consultaColheita()
             colheitaBanco.setNomedeProduto(request.getNomeProduto());
             colheitaBanco.setQuantidadeEstoque(request.getQuantidadeEstoque());
             colheitaBanco.setValorProduto(request.getValorProduto());
-            colheitaBanco.setProdutorRural(request.getProdutorRural());
 
             colheitaRepository.save(colheitaBanco);
 

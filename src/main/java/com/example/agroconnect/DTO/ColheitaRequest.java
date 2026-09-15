@@ -7,18 +7,19 @@ public class ColheitaRequest {
     private String nomeProduto;
     private Integer quantidadeEstoque;
     private Double valorProduto;
-    private String produtorRural;
+    private Long usuarioId;
 
     public String getNomeProduto() {
         return nomeProduto;
     }
 
-    public String getProdutorRural() {
-        return produtorRural;
+
+    public Long getUsuarioId() {
+        return usuarioId;
     }
 
-    public void setProdutorRural(String produtorRural) {
-        this.produtorRural = produtorRural;
+    public void setUsuarioId(Long usuarioId) {
+        this.usuarioId = usuarioId;
     }
 
     public void setNomeProduto(String nomeProduto) {
