@@ -1,20 +1,26 @@
 package com.example.agroconnect.entities;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+import java.time.LocalDateTime;
+@Entity
+
 public class Usuario {
 
     public Usuario(){
-        this.id = 1L;
-
     }
 
     public Usuario(String nome, String cpf, String dataNascimento){
-        this.id = 1000L;
         this.nome = nome;
         this.cpf = cpf;
         this.dataNascimento = dataNascimento;
 
     }
-
+@Id
+@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String nome;
@@ -22,6 +28,46 @@ public class Usuario {
     private String cpf;
 
     private String dataNascimento;
+
+    private LocalDateTime dataCadastro;
+
+    private LocalDateTime dataAtualizacao;
+
+    private String status;
+
+    private String senha;
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public LocalDateTime getDataAtualizacao() {
+        return dataAtualizacao;
+    }
+
+    public void setDataAtualizacao(LocalDateTime dataAtualizacao) {
+        this.dataAtualizacao = dataAtualizacao;
+    }
+
+    public LocalDateTime getDataCadastro() {
+        return dataCadastro;
+    }
+
+    public void setDataCadastro(LocalDateTime dataCadastro) {
+        this.dataCadastro = dataCadastro;
+    }
 
     public Long getId(){
         return this.id;
