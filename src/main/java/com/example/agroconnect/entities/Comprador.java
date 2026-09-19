@@ -16,7 +16,7 @@ public class Comprador {
 
     private String nome;
 
-    private String CpfouCnpj;
+    private String cpfouCnpj;
 
     private String enderecoEntrega;
 
@@ -47,11 +47,11 @@ public class Comprador {
     }
 
     public String getCpfouCnpj() {
-        return this.CpfouCnpj;
+        return this.cpfouCnpj;
     }
 
     public void setCpfouCnpj(String cpfouCnpj) {
-        CpfouCnpj = cpfouCnpj;
+        this.cpfouCnpj = cpfouCnpj;
     }
 
     public String getEnderecoEntrega() {

@@ -69,7 +69,7 @@ public class ColheitaController {
         colheitaBanco.setStatus("A");
 
 
-        Usuario donoColheita = usuarioRepository.findById(request.getUsuarioId()).orElse(null);
+        Usuario donoColheita = usuarioRepository.getUsuarioByCpf(request.getCpfProdutor()).orElse(null);
 
 
         if(donoColheita == null) {

@@ -7,20 +7,22 @@ public class ColheitaRequest {
     private String nomeProduto;
     private Integer quantidadeEstoque;
     private Double valorProduto;
-    private Long usuarioId;
-
+    private String cpfProdutor;
     public String getNomeProduto() {
         return nomeProduto;
     }
 
 
-    public Long getUsuarioId() {
-        return usuarioId;
+
+
+    public String getCpfProdutor() {
+        return cpfProdutor;
     }
 
-    public void setUsuarioId(Long usuarioId) {
-        this.usuarioId = usuarioId;
+    public void setCpfProdutor(String cpfProdutor) {
+        this.cpfProdutor = cpfProdutor;
     }
+
 
     public void setNomeProduto(String nomeProduto) {
         this.nomeProduto = nomeProduto;

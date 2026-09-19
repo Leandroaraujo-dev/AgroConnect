@@ -2,19 +2,13 @@ package com.example.agroconnect.DTO;
 
 public class PedidoRequest {
 
-    public PedidoRequest() {}
+    public PedidoRequest() {
+    }
 
     private Integer quantidadeComprada;
-    private Long colheitaId;
-    private Long compradorId;
+    private String nomeColheita;
+    private String documentoComprador;
 
-    public Long getCompradorId() {
-        return compradorId;
-    }
-
-    public void setCompradorId(Long compradorId) {
-        this.compradorId = compradorId;
-    }
 
     public Integer getQuantidadeComprada() {
         return quantidadeComprada;
@@ -24,11 +18,21 @@ public class PedidoRequest {
         this.quantidadeComprada = quantidadeComprada;
     }
 
-    public Long getColheitaId() {
-        return colheitaId;
+    public String getNomeColheita() {
+        return nomeColheita;
     }
 
-    public void setColheitaId(Long colheitaId) {
-        this.colheitaId = colheitaId;
+    public void setNomeColheita(String nomeColheita) {
+        this.nomeColheita = nomeColheita;
+    }
+
+    public String getDocumentoComprador() {
+        return documentoComprador;
+    }
+
+    public void setDocumentoComprador(String documentoComprador) {
+        this.documentoComprador = documentoComprador;
     }
 }
+
+

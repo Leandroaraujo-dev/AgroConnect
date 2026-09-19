@@ -52,8 +52,8 @@ import java.util.List;
         pedidoBanco.setQuantidadeComprada(request.getQuantidadeComprada());
         pedidoBanco.setStatusPagamento("Pendente");
         pedidoBanco.setStatus("A");
-        Colheita colheita = colheitaRepository.findById(request.getColheitaId()).orElse(null);
-        Comprador comprador = compradorRepository.findById(request.getCompradorId()).orElse(null);
+        Colheita colheita = colheitaRepository.findByNomedeProduto(request.getNomeColheita()).orElse(null);
+        Comprador comprador = compradorRepository.findByCpfouCnpj(request.getDocumentoComprador()).orElse(null);
 
         if (colheita == null || comprador == null) {
             return ResponseEntity.badRequest().build();
@@ -62,8 +62,8 @@ import java.util.List;
         pedidoBanco.setColheitaComprada(colheita);
         pedidoBanco.setComprador(comprador);
 
-        pedidoRepository.save(pedidoBanco);
-        return ResponseEntity.ok(new PedidoResponse("Pedido criado com sucesso", pedidoBanco.getId()));
+        Pedido pedidoSalvo = pedidoRepository.save(pedidoBanco);
+        return ResponseEntity.ok(new PedidoResponse("Pedido criado com sucesso", pedidoSalvo.getId()));
     }
 
     @PutMapping("/{id}")
