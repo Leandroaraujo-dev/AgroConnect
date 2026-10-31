@@ -22,6 +22,16 @@ public class Pedido {
     private String statusPagamento;
     private String status;
 
+
+    private Double valorTotal;
+
+    public Double getValorTotal() {
+        return valorTotal;
+    }
+
+    public void setValorTotal(Double valorTotal) {
+        this.valorTotal = valorTotal;
+    }
     public String getStatus() {
         return status;
     }

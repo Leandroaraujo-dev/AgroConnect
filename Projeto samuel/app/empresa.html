@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Lista de empresas cadastradas no AgroConnect.">
+  <title>Empresas | AgroConnect</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <script src="js/script.js" defer></script>
+</head>
+<body data-page="empresas">
+  <aside id="sidebar" class="sidebar" aria-label="Menu principal">
+    <a class="brand" href="dashboard.html" aria-label="Ir para o dashboard">
+      <span class="brand-icon" aria-hidden="true">A</span>
+      <span class="brand-name">AgroConnect</span>
+    </a>
+
+    <p class="menu-label">MENU PRINCIPAL</p>
+    <nav aria-label="Navegação principal">
+      <a class="nav-link" href="dashboard.html">
+        <i class="nav-icon bx bxs-dashboard" aria-hidden="true"></i>
+        <span>Dashboard</span>
+      </a>
+      <a class="nav-link" href="pedidos.html">
+        <i class="nav-icon bx bx-clipboard" aria-hidden="true"></i>
+        <span>Pedidos</span>
+      </a>
+      <a class="nav-link" href="comprador.html">
+        <i class="nav-icon bx bx-group" aria-hidden="true"></i>
+        <span>Compradores</span>
+      </a>
+      <a class="nav-link" href="colheita.html">
+        <i class="nav-icon bx bx-leaf" aria-hidden="true"></i>
+        <span>Colheitas</span>
+      </a>
+      <a class="nav-link" href="usuarios.html">
+        <i class="nav-icon bx bx-user" aria-hidden="true"></i>
+        <span>Usuários</span>
+      </a>
+      <a class="nav-link active" href="empresa.html" aria-current="page">
+        <i class="nav-icon bx bx-buildings" aria-hidden="true"></i>
+        <span>Empresas</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <span class="status-dot" aria-hidden="true"></span>
+      <span>Sistema conectado</span>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <header class="topbar">
+      <button
+        id="menu-button"
+        class="menu-button"
+        type="button"
+        aria-controls="sidebar"
+        aria-expanded="true"
+      >
+        <span class="hamburger-icon" aria-hidden="true">☰</span>
+        <span>Menu</span>
+      </button>
+      <span class="topbar-caption">Gerenciamento de empresas</span>
+      <a class="logout-button" href="index.html">Sair</a>
+    </header>
+
+    <div class="page-content">
+      <section class="users-section page-section" aria-labelledby="companies-title">
+        <div class="users-heading">
+          <div>
+            <p class="eyebrow">CADASTROS</p>
+            <h1 id="companies-title">Lista de Empresas</h1>
+          </div>
+          <div class="list-heading-actions">
+            <label for="filtroStatus">Exibir</label>
+            <select id="filtroStatus" aria-label="Filtrar empresas por status">
+              <option value="ativos" selected>Ativos</option>
+              <option value="inativos">Inativos</option>
+              <option value="todos">Todos</option>
+            </select>
+            <button id="add-company-button" class="add-user-button" type="button">Adicionar Empresa</button>
+          </div>
+        </div>
+
+        <p id="companies-message" class="users-message" role="status" aria-live="polite">Carregando empresas...</p>
+
+        <div class="users-table-wrapper">
+          <table class="users-table">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Razão Social</th>
+                <th scope="col">Nome Fantasia</th>
+                <th scope="col">CNPJ</th>
+                <th scope="col">Inscrição Estadual</th>
+                <th scope="col">Qtd. Usuários</th>
+                <th scope="col">Status</th>
+                <th scope="col">Ações</th>
+              </tr>
+            </thead>
+            <tbody id="companies-table-body"></tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <div id="company-modal" class="user-modal" hidden>
+    <section
+      class="user-modal-content"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="company-modal-title"
+    >
+      <h2 id="company-modal-title">Cadastrar Empresa</h2>
+      <form id="company-form">
+        <label class="user-form-field" for="company-legal-name">
+          Razão Social
+          <input id="company-legal-name" name="razaoSocial" type="text" autocomplete="organization" required>
+        </label>
+        <label class="user-form-field" for="company-trade-name">
+          Nome Fantasia
+          <input id="company-trade-name" name="nomeFantasia" type="text" required>
+        </label>
+        <label class="user-form-field" for="company-cnpj">
+          CNPJ
+          <input id="company-cnpj" name="cnpj" type="text" inputmode="numeric" maxlength="14" required>
+        </label>
+        <label class="user-form-field" for="company-state-registration">
+          Inscrição Estadual
+          <input id="company-state-registration" name="inscricaoEstadual" type="text">
+        </label>
+        <p id="company-form-message" class="user-form-message" role="alert" aria-live="polite"></p>
+        <div class="user-modal-actions">
+          <button id="company-cancel-button" class="user-cancel-button" type="button">Cancelar</button>
+          <button id="company-save-button" class="user-save-button" type="submit">Salvar</button>
+        </div>
+      </form>
+    </section>
+  </div>
+</body>
+</html>
