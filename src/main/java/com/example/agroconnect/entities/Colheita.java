@@ -1,11 +1,8 @@
 package com.example.agroconnect.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.JoinColumn;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 
 // não é apenas um código comum, mas sim uma Tabela real no banco de dados PostgreSQL.
@@ -35,9 +32,21 @@ public class Colheita {
     @JoinColumn(name = "usuario_id")
     private Usuario usuarioColheita;
 
+    @OneToMany(mappedBy = "colheitaComprada")
+    private List<Pedido> pedidos;
 
+    public void setUsuarioColheita(Usuario usuarioColheita) {
+        this.usuarioColheita = usuarioColheita;
+    }
 
-    // GETTERS E SETTERS
+    public List<Pedido> getPedidos() {
+        return pedidos;
+    }
+
+    public void setPedidos(List<Pedido> pedidos) {
+        this.pedidos = pedidos;
+    }
+// GETTERS E SETTERS
     // Métodos para encapsulamento: permitem ler (Get) e gravar (Set) os dados privados da entidade.
 
     public String getStatus() {

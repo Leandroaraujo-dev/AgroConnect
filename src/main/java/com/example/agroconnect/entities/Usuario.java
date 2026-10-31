@@ -1,11 +1,13 @@
 package com.example.agroconnect.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+
+import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 @Entity
 
 public class Usuario {
@@ -36,6 +38,56 @@ public class Usuario {
     private String status;
 
     private String senha;
+
+
+
+    //muitos pra muitos
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "usuario_cursos",
+            joinColumns = @JoinColumn(name = "usuario_id"),
+            inverseJoinColumns = @JoinColumn(name = "curso_id")
+    )
+    private Set<Curso> cursos = new HashSet<>();
+
+    public Set<Curso> getCursos() {
+        return cursos;
+    }
+
+    public void setCursos(Set<Curso> cursos) {
+        this.cursos = cursos;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "empresa_id", referencedColumnName = "Id")
+    private Empresa empresa;
+
+    public Empresa getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(Empresa empresa) {
+        this.empresa = empresa;
+    }
+
+    @OneToMany(mappedBy = "usuarioColheita")
+    private List<Colheita> colheitas;
+
+    public List<Colheita> getColheitas() {
+        return colheitas;
+    }
+
+    public void setColheitas(List<Colheita> colheitas) {
+        this.colheitas = colheitas;
+    }
 
     public String getSenha() {
         return senha;

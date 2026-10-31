@@ -7,6 +7,16 @@ public class LoginResponse {
 
     private String mensagem;
 
+    private String token;
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
     public String getMensagem() {
         return this.mensagem;
     }
