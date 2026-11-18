@@ -1,3 +1,5 @@
+const API_BASE_URL ="https://agroconnect-1-huz1.onrender.com/";
+
 const urlLogin = "http://localhost:8080/login";
 const urlUsuarios = "http://localhost:8080/usuario";
 const urlPedidos = "http://localhost:8080/pedido";
