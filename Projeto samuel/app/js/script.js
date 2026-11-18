@@ -1,9 +1,11 @@
-const urlLogin = "http://localhost:8080/login";
-const urlUsuarios = "http://localhost:8080/usuario";
-const urlPedidos = "http://localhost:8080/pedido";
-const urlColheitas = "http://localhost:8080/colheita";
-const urlCompradores = "http://localhost:8080/comprador";
-const urlEmpresas = "http://localhost:8080/empresa";
+const API_BASE_URL ="https://agroconnect-1-huz1.onrender.com/";
+
+const urlLogin = `${API_BASE_URL}/login`;
+const urlUsuarios = `${API_BASE_URL}/usuario`;
+const urlPedidos = `${API_BASE_URL}/pedido`;
+const urlColheitas = `${API_BASE_URL}/colheita`;
+const urlCompradores = `${API_BASE_URL}/comprador`;
+const urlEmpresas = `${API_BASE_URL}/empresa`;
 
 /**
  * Centraliza as chamadas ao backend para manter o envio do JWT e o tratamento
