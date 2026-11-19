@@ -1,4 +1,4 @@
-const API_BASE_URL ="https://agroconnect-1-huz1.onrender.com/";
+const API_BASE_URL = "https://agroconnect-r19a.onrender.com";
 
 const urlLogin = `${API_BASE_URL}/login`;
 const urlUsuarios = `${API_BASE_URL}/usuario`;
